@@ -115,11 +115,9 @@
 		..()
 
 	proc/update_nearby_tiles(need_rebuild)
-		var/turf/source = loc
-		if (istype(source))
-			return source.update_nearby_tiles(need_rebuild)
-
-		return 1
+		if (isturf(loc))
+			return loc.update_nearby_tiles(need_rebuild)
+		return TRUE
 
 	get_desc()
 		if (_health / _max_health == 1)

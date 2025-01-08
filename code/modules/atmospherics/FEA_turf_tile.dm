@@ -566,7 +566,7 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 /turf/proc/update_nearby_tiles(need_rebuild)
 	if(!air_master) return 0
 
-	src.selftilenotify() //used in fluids.dm for displaced fluid
+	selftilenotify() //used in fluids.dm for displaced fluid
 
 	var/turf/north = get_step(src,NORTH)
 	var/turf/south = get_step(src,SOUTH)
@@ -574,9 +574,9 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	var/turf/west = get_step(src,WEST)
 
 	if(need_rebuild)
-		if(istype(src)) //Rebuild/update nearby group geometry
-			if(src.parent)
-				air_master.groups_to_rebuild |= src.parent
+		if(istype(src, /turf/simulated)) //Rebuild/update nearby group geometry
+			if(parent)
+				air_master.groups_to_rebuild |= parent
 			else
 				air_master.tiles_to_update |= src
 
@@ -605,7 +605,8 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 			else
 				air_master.tiles_to_update |= west
 	else
-		if(istype(src)) air_master.tiles_to_update |= src
+		if(istype(src, /turf/simulated))
+			air_master.tiles_to_update |= src
 		if(istype(north))
 			north.tilenotify(src)
 			air_master.tiles_to_update |= north

@@ -28,11 +28,9 @@
 				M.throw_at(get_edge_target_turf(M, get_dir(M, OldLoc)), 25, 4)
 
 	proc/update_nearby_tiles(need_rebuild)
-		var/turf/source = loc
-		if (istype(source))
-			return source.update_nearby_tiles(need_rebuild)
-
-		return 1
+		if(isturf(loc))
+			return loc.update_nearby_tiles(need_rebuild)
+		return TRUE
 
 /obj/machinery/atmos_field_generator
 	name = "atmospheric field generator"
